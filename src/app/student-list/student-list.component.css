@@ -1,0 +1,21 @@
+/* styles.css */
+body {
+  padding-top: 56px;
+}
+
+.container {
+  max-width: 960px;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+}
+
+.btn {
+  margin-right: 5px;
+}
