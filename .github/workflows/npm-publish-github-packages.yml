@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Build Angular app
-        run: npm run build --prod
+        run: npm run build
 
       - name: Archive production artifacts
         run: tar -czf build.tar.gz -C frontend/dist .
