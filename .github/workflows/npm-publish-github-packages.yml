@@ -59,7 +59,7 @@ jobs:
 
       - name: Deploy on EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@your-ec2-instance-public-dns << 'EOF'
+          ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-137-147-107.us-east-2.compute.amazonaws.com << 'EOF'
             cd /var/www/html
             rm -rf *
             tar -xzf /home/ec2-user/build.tar.gz -C .
