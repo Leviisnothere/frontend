@@ -61,7 +61,7 @@ jobs:
           ssh ec2-user@ec2-3-137-147-107.us-east-2.compute.amazonaws.com << 'EOF'
             # Install Nginx if not already installed
             if ! command -v nginx > /dev/null; then
-              sudo amazon-linux-extras install nginx1 -y
+              sudo yum install nginx -y
               sudo systemctl start nginx
               sudo systemctl enable nginx
             fi
