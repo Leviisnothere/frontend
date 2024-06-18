@@ -8,7 +8,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class StudentService {
-  private apiUrl = 'http://3.15.152.64:8080/api/students';
+  private apiUrl = 'http://3.140.244.248:8080/api/students';
   constructor(private http: HttpClient) {}
 
   getStudents() : Observable<Student[]>{
