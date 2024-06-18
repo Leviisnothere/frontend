@@ -25,7 +25,7 @@ jobs:
         run: npm run build
 
       - name: Archive production artifacts
-        run: tar -czf build.tar.gz -C dist/frontend .
+        run: tar -czf build.tar.gz -C dist.
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
@@ -56,10 +56,35 @@ jobs:
         run: |
           scp build.tar.gz ec2-user@ec2-3-137-147-107.us-east-2.compute.amazonaws.com:/home/ec2-user/
 
+      - name: Set up Nginx and deployment directory on EC2
+        run: |
+          ssh ec2-user@ec2-3-137-147-107.us-east-2.compute.amazonaws.com << 'EOF'
+            # Install Nginx if not already installed
+            if ! command -v nginx > /dev/null; then
+              sudo amazon-linux-extras install nginx1 -y
+              sudo systemctl start nginx
+              sudo systemctl enable nginx
+            fi
+
+            # Create the deployment directory if it does not exist
+            sudo mkdir -p /var/www/html
+            sudo chown ec2-user:ec2-user /var/www/html
+          EOF
 
       - name: Deploy on EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-137-147-107.us-east-2.compute.amazonaws.com << 'EOF'
+          ssh ec2-user@ec2-3-137-147-107.us-east-2.compute.amazonaws.com << 'EOF'
+            # Navigate to the target deployment directory
+            cd /var/www/html
+
+            # Remove existing content
+            rm -rf *
+
+            # Extract the new build artifact from the home directory to the current directory
             tar -xzf /home/ec2-user/build.tar.gz -C .
+
+            # Clean up by removing the tar file from the home directory
             rm /home/ec2-user/build.tar.gz
           EOF
+
+
