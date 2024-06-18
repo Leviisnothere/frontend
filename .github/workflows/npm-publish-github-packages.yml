@@ -25,7 +25,7 @@ jobs:
         run: npm run build --prod
 
       - name: Archive production artifacts
-        run: tar -czf build.tar.gz -C dist/your-angular-app .
+        run: tar -czf build.tar.gz -C frontend .
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
@@ -49,7 +49,7 @@ jobs:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
       - name: Copy artifact to EC2
-        run: scp -o StrictHostKeyChecking=no build.tar.gz ec2-user@your-ec2-instance-public-dns:/home/ec2-user
+        run: scp -o StrictHostKeyChecking=no build.tar.gz ec2-3-137-147-107.us-east-2.compute.amazonaws.com:/home/ec2-user
 
       - name: Deploy on EC2
         run: |
