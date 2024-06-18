@@ -50,7 +50,7 @@ jobs:
 
       - name: Copy artifact to EC2
         run: |
-          scp -o build.tar.gz ec2-user@ec2-3-137-147-107.us-east-2.compute.amazonaws.com:/home/ec2-user/
+          scp build.tar.gz ec2-user@ec2-3-137-147-107.us-east-2.compute.amazonaws.com:/home/ec2-user/
 
       - name: Deploy on EC2
         run: |
